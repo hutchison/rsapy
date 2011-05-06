@@ -42,9 +42,10 @@ def main():
     print "Wähle zufällig p und q..."
 
     p,q = 0,0
-    while not(prim(p) and prim(q)):
-        p = random.randint(2,10**10)
-        q = random.randint(2,10**10)
+    while not(prim(p)):
+        p = random.randint(2,10**13)
+    while not(prim(q)):
+        q = random.randint(2,10**13)
 
     print "\tp =", p
     print "\tq =", q
