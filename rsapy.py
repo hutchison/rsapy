@@ -10,6 +10,49 @@ def ggt(a,b):
     else:
         return ggt(b, a % b)
 
+def jacobi(a,n):
+    if a == 1:
+        return 1
+    if n % 2 == 0:
+        return False
+    if a % n == 0:
+        return 0
+    if a == 2:
+        if (n % 8 == 1) or (n % 8 == 7):
+            return 1
+        else:
+            return -1
+    if a == (n-1):
+        if n % 4 == 1:
+            return 1
+        else:
+            return -1
+    if a % 2 == 0:
+        return jacobi(2,n) * jacobi(a/2,n)
+    if a > n:
+        return jacobi(a % n, n)
+    if (a % 4 == 3) and (n % 4 == 3):
+        return (-1) * jacobi(n,a)
+    if (a % 4 == 1) or (n % 4 == 1):
+        return jacobi(n,a)
+
+def solovaystrassen(n,k):
+    if n < 2:
+        return False
+    if n == 2:
+        return True
+    while k>0:
+        a = random.randint(2,n-1)
+        x = jacobi(a,n)
+        if x == 0:
+            return False
+        m = (n-1)/2
+        if (pow(a,m,n) != (x % n)):
+            return False
+        k -= 1
+    return True
+
+
 def prim(n):
     if n < 2:
         return False
@@ -42,10 +85,10 @@ def main():
     print "Wähle zufällig p und q..."
 
     p,q = 0,0
-    while not(prim(p)):
-        p = random.randint(2,10**13)
-    while not(prim(q)):
-        q = random.randint(2,10**13)
+    while not(solovaystrassen(p,100)):
+        p = random.randint(2,10**40)
+    while not(solovaystrassen(q,100)):
+        q = random.randint(2,10**40)
 
     print "\tp =", p
     print "\tq =", q
