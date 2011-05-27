@@ -41,17 +41,18 @@ def solovaystrassen(n,k):
         return False
     if n == 2:
         return True
-    while k>0:
-        a = random.randint(2,n-1)
+    # Liste mit zu überprüfenden Zahlen:
+    l = set()
+    while len(l) < k:
+        l.add(random.randint(2,n-1))
+    for a in l:
         x = jacobi(a,n)
         if x == 0:
             return False
         m = (n-1)/2
         if (pow(a,m,n) != (x % n)):
             return False
-        k -= 1
     return True
-
 
 def prim(n):
     if n < 2:
@@ -93,7 +94,8 @@ def main():
     print "\tp =", p
     print "\tq =", q
 
-    print "Berechne n und phi(n)..."
+    # Unicode ftw!
+    print "Berechne n und φ(n)..."
 
     n = p*q
 
@@ -101,7 +103,7 @@ def main():
 
     phin = (p-1)*(q-1)
 
-    print "\tphi(n) =", phin
+    print "\tφ(n) =", phin
 
     print "Berechne e..."
     e = 0
