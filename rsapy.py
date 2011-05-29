@@ -10,6 +10,30 @@ def ggt(a,b):
     else:
         return ggt(b, a % b)
 
+def horner(x,p):
+    r = 0
+    for c in p:
+        r = r*x + c
+    return r
+
+def hornermod(x,p,m):
+    r = 0
+    for c in p:
+        r = (r*x + c) % m
+    return r
+
+# noch nicht fertig:
+def rho(n, p, x0):
+    x = [x0]
+    d = 1
+    j = 0
+    while d == 1:
+        x.append( hornermod(x[j], p, n) )
+        for k in range(j):
+            d = ggt(x[j] - x[k], n)
+        j += 1
+    return d
+
 def jacobi(a,n):
     if a == 1:
         return 1
@@ -91,57 +115,45 @@ def main():
     while not(solovaystrassen(q,100)):
         q = random.randint(2,10**40)
 
-    print "\tp =", p
-    print "\tq =", q
+    print "\tp\t=", p
+    print "\tq\t=", q
 
     # Unicode ftw!
     print "Berechne n und φ(n)..."
 
     n = p*q
 
-    print "\tn =", n
+    print "\tn\t=", n
 
     phin = (p-1)*(q-1)
 
-    print "\tφ(n) =", phin
+    print "\tφ(n)\t=", phin
 
     print "Berechne e..."
     e = 0
     while not(ggt(e,phin) == 1):
         e = random.randint(2,phin-1)
-    print "\te =", e
+    print "\te\t=", e
 
     print "Berechne d..."
     (x,y) = erweiterter_ggt(e,phin)
     d = x % phin
-    print "\td =", d
-
-    print
-
-    print "n\t", n
-    print "p\t", p
-    print "q\t", q
-    print "phin\t", phin
-    print "e\t", e
-    print "d\t", d
-
-    print
+    print "\td\t=", d
 
     print "Verschlüsselung..."
-    print "Klartext:\t", M
+    print "  Klartext:\t", M
 
     C = []
     for m in M:
         C.append(pow(ord(m),e,n))
-    print "Geheimtext:\t", C
-
-    print
+    print "  Geheimtext:\t", C
 
     print "Entschlüsselung..."
     M = ""
     for c in C:
         M += chr(pow(c,d,n))
-    print "Klartext:\t", M
+    print "  Klartext:\t", M
 
 if __name__ == "__main__":
-    main()
+    print "bla"
+    #main()
