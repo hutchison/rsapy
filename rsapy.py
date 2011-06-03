@@ -49,6 +49,11 @@ def factorize_fermat(n):
 	y = int(sqrt(r))
 	return (x+y,x-y)
 
+def anzahlprimzahlen(n):
+	if n < 2:
+		return 0
+	return len(filter(prim,range(2,n+1)))
+
 def jacobi(a,n):
 	if a == 1:
 		return 1
@@ -170,5 +175,8 @@ def main():
 	print "  Klartext:\t", M
 
 if __name__ == "__main__":
-	print factorize_fermat(290377)
+	for i in range(7):
+		print anzahlprimzahlen(10**i)
+	#print factorize_rho(290377,[1,1,1],1)
+	#print factorize_fermat(290377)
 	#main()
