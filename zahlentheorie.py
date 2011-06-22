@@ -21,31 +21,25 @@ def horner(x,p):
 	return r
 
 def hornermod(x,p,m):
-<<<<<<< HEAD
-    r = 0
-    for c in p:
-        r = (r*x + c) % m
-    return r
-
-def rho(n, p, x0):
-    x = [x0]
-    d = 1
-    j = 0
-    while d == 1:
-        xn = hornermod(x[j], p, n)
-        x.append(xn)
-        j += 1
-        for k in range(j):
-            d = ggt(x[j] - x[k], n)
-            if 1 < d < n:
-                return d
-    if d == n:
-        return False
-=======
 	r = 0
 	for c in p:
 		r = (r*x + c) % m
 	return r
+
+def rho(n, p, x0):
+	x = [x0]
+	d = 1
+	j = 0
+	while d == 1:
+		xn = hornermod(x[j], p, n)
+		x.append(xn)
+		j += 1
+		for k in range(j):
+			d = ggt(x[j] - x[k], n)
+			if 1 < d < n:
+				return d
+	if d == n:
+		return False
 
 def factorize_rho(n, p, x0):
 	x = [x0]
@@ -201,6 +195,6 @@ def main():
 if __name__ == "__main__":
 	for i in range(7):
 		print anzahlprimzahlen(10**i)
-	#print factorize_rho(290377,[1,1,1],1)
-	#print factorize_fermat(290377)
+	print factorize_rho(290377,[1,1,1],1)
+	print factorize_fermat(290377)
 	#main()
