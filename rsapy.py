@@ -10,6 +10,9 @@ def ggt(a,b):
     else:
         return ggt(b, a % b)
 
+"""
+Berechnet den Wert des Polynoms p an der Stelle x.
+"""
 def horner(x,p):
     r = 0
     for c in p:
@@ -22,17 +25,20 @@ def hornermod(x,p,m):
         r = (r*x + c) % m
     return r
 
-# noch nicht fertig:
 def rho(n, p, x0):
     x = [x0]
     d = 1
     j = 0
     while d == 1:
-        x.append( hornermod(x[j], p, n) )
+        xn = hornermod(x[j], p, n)
+        x.append(xn)
+        j += 1
         for k in range(j):
             d = ggt(x[j] - x[k], n)
-        j += 1
-    return d
+            if 1 < d < n:
+                return d
+    if d == n:
+        return False
 
 def jacobi(a,n):
     if a == 1:
